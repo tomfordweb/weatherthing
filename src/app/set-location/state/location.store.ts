@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
 
 export interface LocationState {
-  location: string;
+  location:string;
 }
 
-export function createInitialState(): LocationState {
+export function createInitialState(location:string = ''): LocationState {
   return {
-    location: ''
+    location
   };
 }
 
@@ -18,6 +18,4 @@ export class LocationStore extends Store<LocationState> {
   constructor() {
     super(createInitialState());
   }
-
 }
-
