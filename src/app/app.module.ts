@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { SetLocationModule } from './set-location/set-location.module';
 import { HttpClientModule } from '@angular/common/http';
+import { StorageServiceModule } from 'ngx-webstorage-service';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    StorageServiceModule,
     AkitaNgDevtools.forRoot(),
   ],
   providers: [],

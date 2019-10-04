@@ -41,11 +41,11 @@ export class CurrentWeatherService {
       .subscribe((response:LocationWeatherInfo) =>  {
         // set the hourly weather data
         this.currentWeatherStore.set(
-          this.createFromOpenWeatherListResponse(response.list))
-        ;
+          this.createFromOpenWeatherListResponse(response.list)
+      );
 
-        // update city information such as latitude, longitude, sunset, population, etc
-        this.locationStore.update({
+      // update city information such as latitude, longitude, sunset, population, etc
+      this.locationStore.update({
           city: response.city
         });
       });

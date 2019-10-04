@@ -14,6 +14,6 @@ export class SetLocationComponent implements OnInit {
   }
 
   set(locationInput:string):void {
-    this.locationService.set(locationInput);
+    this.locationService.setLocation(locationInput);
   }
 }
