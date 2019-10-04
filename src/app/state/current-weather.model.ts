@@ -1,7 +1,12 @@
 import { ID, guid } from '@datorama/akita';
+import { LocationCity } from '../set-location/state';
 
-export interface CurrentWeather {
-  id: ID;
+export type LocationWeatherInfo = {
+  list:CurrentWeather[],
+  city:LocationCity,
+  id: ID,
+}
+export type CurrentWeather = {
   clouds:{all:number},
   dt:number,
   dt_txt:string,
@@ -24,7 +29,5 @@ export interface CurrentWeather {
 
 export function createCurrentWeather(params: Partial<CurrentWeather>) {
   return {
-    id: guid(),
-    ...params
-  } as CurrentWeather;
+  } as LocationWeatherInfo;
 }

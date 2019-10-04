@@ -4,18 +4,19 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { CurrentWeather } from './current-weather.model';
+import { CurrentWeather, LocationWeatherInfo } from './current-weather.model';
+import { LocationStore } from '../set-location/state';
+import { guid } from '@datorama/akita';
 
-type RawData = {
-  list:Array<CurrentWeather>
-};
 
 @Injectable({ providedIn: 'root' })
 export class CurrentWeatherService {
 
-  constructor(private currentWeatherStore: CurrentWeatherStore,
-              private http: HttpClient) {
-  }
+  constructor(
+    private currentWeatherStore: CurrentWeatherStore,
+    private locationStore: LocationStore,
+    private http: HttpClient
+  ) {}
   queryOpenWeather(location:any) {
     let params = new HttpParams();
     params = params.set('q', location);
@@ -28,16 +29,25 @@ export class CurrentWeatherService {
    });
   }
 
-  convertResponse() {
-
+  protected createFromOpenWeatherListResponse(response:CurrentWeather[]) {
+    return response.reduce((obj, item) => {
+      obj[guid()] = item
+      return obj
+    }, {})
   }
-
   get(location:string) {
- 
-    this.queryOpenWeather(location).subscribe((response:RawData) =>  {
-      console.log(typeof response);
 
-      this.currentWeatherStore.set(response);
-    });
+    this.queryOpenWeather(location)
+      .subscribe((response:LocationWeatherInfo) =>  {
+        // set the hourly weather data
+        this.currentWeatherStore.set(
+          this.createFromOpenWeatherListResponse(response.list))
+        ;
+
+        // update city information such as latitude, longitude, sunset, population, etc
+        this.locationStore.update({
+          city: response.city
+        });
+      });
   }
 }
