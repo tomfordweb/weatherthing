@@ -7,17 +7,15 @@ import { SetLocationComponent } from '../set-location/set-location.component';
 import { SetLocationModule } from '../set-location/set-location.module';
 import { ForecastRowItemComponent } from '../components/forecast-row-item/forecast-row-item.component';
 import { ForecastListComponent } from '../components/forecast-list/forecast-list.component';
-
+import { ForecastRowDetailItemComponent } from '../components/forecast-row-detail-item/forecast-row-detail-item.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     ForecastRowItemComponent,
-    ForecastListComponent
+    ForecastListComponent,
+    ForecastRowDetailItemComponent
   ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-  ],
+  imports: [CommonModule, DashboardRoutingModule]
 })
-export class DashboardModule { }
+export class DashboardModule {}

@@ -1,59 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
-import { LocationCity } from 'src/app/set-location/state';
 import * as moment from 'moment';
-
-export interface OpenWeatherRaw {
-  list?: WeatherRaw[];
-  city?: LocationCity;
-}
-
-export type WeatherRaw = {
-  clouds: { all: number };
-  dt: number;
-  dt_txt: string;
-  main: {
-    grnd_level: number;
-    humidity: number;
-    pressure: number;
-    sea_level: number;
-    temp: number;
-    temp_kf: number;
-    temp_max: number;
-  };
-  weather: Array<{
-    description: string;
-    icon: string;
-    id: number;
-    main: string;
-  }>;
-};
-
-export interface WeatherState {
-  weather?: WeatherClean[];
-  city?: LocationCity;
-}
-
-export type WeatherClean = {
-  date?: {
-    iso: number;
-    time: string;
-    day: string;
-    month: string;
-    year: string;
-  };
-  humidity?: number;
-  groundLevel?: number;
-  pressure?: number;
-  temperature?: number;
-  seaLevel?: number;
-  weather?: Array<{
-    description: string;
-    icon: string;
-    id: number;
-    main: string;
-  }>;
-};
+import { OpenWeatherRaw, WeatherState } from '.';
 
 export function createInitialState(
   props: OpenWeatherRaw | any = null
@@ -86,7 +34,8 @@ export function createInitialState(
           pressure: item.main.pressure,
           temperature: Math.round(item.main.temp),
           seaLevel: item.main.sea_level,
-          weather: item.weather
+          // weather: item.weather,
+          ...item.weather[0]
         };
 
         return {

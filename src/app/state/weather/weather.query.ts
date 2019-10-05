@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
-import { WeatherStore, WeatherState } from './weather.store';
+import { WeatherStore } from './weather.store';
+import { WeatherState } from './weather.types';
 
 @Injectable({ providedIn: 'root' })
 export class WeatherQuery extends Query<WeatherState> {

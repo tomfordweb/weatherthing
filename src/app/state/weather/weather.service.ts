@@ -1,18 +1,12 @@
 import { Injectable, Inject } from '@angular/core';
-import {
-  WeatherStore,
-  OpenWeatherRaw,
-  createInitialState,
-  WeatherClean,
-  WeatherState
-} from './weather.store';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { StorageService, LOCAL_STORAGE } from 'ngx-webstorage-service';
 import * as moment from 'moment';
 import { LocationService } from 'src/app/set-location/state';
-import { guid } from '@datorama/akita';
+import { WeatherStore, createInitialState } from './weather.store';
+import { OpenWeatherRaw } from './weather.types';
 
 export const CURRENT_WEATHER_LOOCAL_STORAGE_KEY =
   'weatherthing:state:currentWeather';
@@ -62,17 +56,18 @@ export class WeatherService {
     let queryApi = true;
     const now = moment().format('YYYY-MM-DD HH:mm:ss');
 
-    // if (
-    //   // only hit api if we havent seen you before
-    //   // or the weather is 4 hours old.
-    //   localStorageCurrentWeather &&
-    //   localStorageLastUpdated &&
-    //   moment(localStorageLastUpdated).isBefore(moment().add(4, 'hours'))
-    // ) {
-    //   queryApi = false;
-    //   this.weatherStore.update(localStorageCurrentWeather);
-    //   return;
-    // }
+    if (
+      // only hit api if we havent seen you before
+      // or the weather is 4 hours old.
+      localStorageCurrentWeather &&
+      localStorageLastUpdated &&
+      environment.useWeatherLocalStorage &&
+      moment(localStorageLastUpdated).isBefore(moment().add(4, 'hours'))
+    ) {
+      queryApi = false;
+      this.weatherStore.update(localStorageCurrentWeather);
+      return;
+    }
 
     if (queryApi) {
       this.queryOpenWeather(location).subscribe(
