@@ -6,7 +6,6 @@ export const LOCATION_LOCAL_STORAGE_KEY = 'weatherthing:state:location';
 
 @Injectable({ providedIn: 'root' })
 export class LocationService {
-
   constructor(
     @Inject(LOCAL_STORAGE) private storage: StorageService,
     private locationStore: LocationStore
@@ -14,28 +13,25 @@ export class LocationService {
     this.setLocationFromLocalStorage();
   }
 
-  public setLocationFromLocalStorage()
-  {
+  public setLocationFromLocalStorage() {
     const localStorageLocation = this.storage.get(LOCATION_LOCAL_STORAGE_KEY);
-    console.log(localStorageLocation);
 
-    if(localStorageLocation) {
+    if (localStorageLocation) {
       this.setLocation(localStorageLocation);
     }
   }
 
-  setCity(input:LocationCity):void {
+  setCity(input: LocationCity): void {
     this.locationStore.update({
       city: input
     });
   }
 
-  setLocation(input:string):void {
+  setLocation(input: string): void {
     this.locationStore.update({
       location: input
     });
 
     this.storage.set(LOCATION_LOCAL_STORAGE_KEY, input);
   }
-
 }

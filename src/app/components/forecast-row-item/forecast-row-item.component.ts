@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CurrentWeather } from 'src/app/state';
+import { WeatherState, WeatherClean } from 'src/app/state/weather';
 
 @Component({
   selector: 'app-forecast-row-item',
@@ -7,15 +7,11 @@ import { CurrentWeather } from 'src/app/state';
   styleUrls: ['./forecast-row-item.component.scss']
 })
 export class ForecastRowItemComponent implements OnInit {
+  @Input() weather: WeatherClean;
 
-  @Input() weather:CurrentWeather;
+  @Input() id: string;
 
-  @Input() id:string;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-    console.log(this.weather);
-  }
-
+  ngOnInit() {}
 }

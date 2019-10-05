@@ -11,16 +11,13 @@ import { ForecastListComponent } from './components/forecast-list/forecast-list.
 import { ForecastRowItemComponent } from './components/forecast-row-item/forecast-row-item.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StorageServiceModule,
-    AkitaNgDevtools.forRoot(),
+    AkitaNgDevtools.forRoot()
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,46 +1,35 @@
-import { Component, OnInit } from "@angular/core";
-import {
-  LocationQuery,
-  LocationState,
-  LocationService
-} from "../set-location/state";
-import { Observable } from "rxjs";
-import { tap } from "rxjs/operators";
-import {
-  CurrentWeatherService,
-  CurrentWeather,
-  CurrentWeatherQuery
-} from "../state";
-
+import { Component, OnInit } from '@angular/core';
+import { LocationQuery, LocationService } from '../set-location/state';
+import { WeatherService, WeatherQuery } from '../state/weather';
 @Component({
-  selector: "app-dashboard",
-  templateUrl: "./dashboard.component.html",
-  styleUrls: ["./dashboard.component.scss"]
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  location = "";
+  location = '';
 
-  public currentWeather;
+  public weather;
 
   constructor(
     private locationQuery: LocationQuery,
     private locationService: LocationService,
-    private currentWeatherQuery: CurrentWeatherQuery,
-    private currentWeatherService: CurrentWeatherService
+    private weatherService: WeatherService,
+    private weatherQuery: WeatherQuery
   ) {}
 
   ngOnInit() {
     this.locationQuery.getLocation$.subscribe(loc => {
       this.location = loc;
-      this.currentWeatherService.get(loc);
+      this.weatherService.get(loc);
     });
 
-    this.currentWeatherQuery
-      .selectAll()
-      .subscribe(currentWeather => (this.currentWeather = currentWeather));
+    this.weatherQuery.getWeather$.subscribe(weather => {
+      this.weather = weather;
+    });
   }
 
   updateLocation(newLocation: string): void {
-    this.currentWeatherService.updateLocation(newLocation);
+    this.weatherService.updateLocation(newLocation);
   }
 }
