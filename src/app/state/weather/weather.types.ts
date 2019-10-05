@@ -31,21 +31,23 @@ export interface WeatherState {
   city?: LocationCity;
 }
 
+export interface WeatherCleanDate {
+  iso?: number;
+  time?: string;
+  minutes?: string;
+  day?: string;
+  month?: string;
+  year?: string;
+}
 export interface WeatherClean {
-  date?: {
-    iso: number;
-    time: string;
-    day: string;
-    month: string;
-    year: string;
-  };
+  date?: WeatherCleanDate;
   humidity?: number;
   groundLevel?: number;
   pressure?: number;
   temperature?: number;
   seaLevel?: number;
-  description: string;
-  icon: string;
-  id: number;
-  main: string;
+  description?: string;
+  icon?: string;
+  id?: number;
+  main?: string;
 }

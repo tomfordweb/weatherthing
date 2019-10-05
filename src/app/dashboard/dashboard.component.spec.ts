@@ -1,7 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
-import { LocationService, LocationStore, createInitialState } from '../set-location/state';
+import {
+  LocationService,
+  LocationStore,
+  createInitialState
+} from '../set-location/state';
+import { ForecastRowItemComponent } from '../components/forecast-row-item/forecast-row-item.component';
+import { ForecastListComponent } from '../components/forecast-list/forecast-list.component';
+import { ForecastRowDetailItemComponent } from '../components/forecast-row-detail-item/forecast-row-detail-item.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('DashboardComponent - using store', () => {
   let component: DashboardComponent;
@@ -11,13 +19,13 @@ describe('DashboardComponent - using store', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [
-        {
-          provide: LocationService,
-          useValue: jasmine.createSpyObj('TodosService', ['get'])
-        }
-      ],
-      declarations: [DashboardComponent]
+      imports: [HttpClientModule],
+      declarations: [
+        DashboardComponent,
+        ForecastRowItemComponent,
+        ForecastListComponent,
+        ForecastRowDetailItemComponent
+      ]
     }).compileComponents();
   }));
 
@@ -35,8 +43,7 @@ describe('DashboardComponent - using store', () => {
   });
 
   it('should display the location in the header', () => {
-    const h1 = dom.querySelector('h1');
-    expect(h1.textContent).toContain('Chicago');
+    const input = dom.querySelector('input');
+    expect(input.value).toContain('Chicago');
   });
 });
-

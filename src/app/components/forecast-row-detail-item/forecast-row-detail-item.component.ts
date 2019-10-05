@@ -4,7 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
   selector: 'app-forecast-row-detail-item',
   template: `
     <div>
-      <p class="value mb-0 text-center display-4">
+      <p class="value mb-0 text-center">
         <ng-content></ng-content>
       </p>
       <p class="title text-center mb-0">{{ title }}</p>

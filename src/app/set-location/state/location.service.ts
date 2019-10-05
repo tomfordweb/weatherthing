@@ -9,9 +9,7 @@ export class LocationService {
   constructor(
     @Inject(LOCAL_STORAGE) private storage: StorageService,
     private locationStore: LocationStore
-  ) {
-    this.setLocationFromLocalStorage();
-  }
+  ) {}
 
   public setLocationFromLocalStorage() {
     const localStorageLocation = this.storage.get(LOCATION_LOCAL_STORAGE_KEY);
@@ -21,17 +19,13 @@ export class LocationService {
     }
   }
 
-  setCity(input: LocationCity): void {
-    this.locationStore.update({
-      city: input
-    });
-  }
-
   setLocation(input: string): void {
-    this.locationStore.update({
-      location: input
-    });
+    if (input && input.length) {
+      this.locationStore.update({
+        location: input
+      });
 
-    this.storage.set(LOCATION_LOCAL_STORAGE_KEY, input);
+      this.storage.set(LOCATION_LOCAL_STORAGE_KEY, input);
+    }
   }
 }

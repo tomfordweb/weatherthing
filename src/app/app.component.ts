@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LocationQuery, LocationState } from './set-location/state';
+import {
+  LocationQuery,
+  LocationState,
+  LocationService
+} from './set-location/state';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -12,17 +16,18 @@ export class AppComponent {
   title = 'weatherthing';
   constructor(
     private locationQuery: LocationQuery,
-    private router: Router) {
-
-  }
+    private locationService: LocationService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    this.locationService.setLocationFromLocalStorage();
     this.locationQuery.getLocation$.subscribe(stateLocation => {
-      if(!stateLocation.length) {
+      if (!stateLocation.length) {
         this.router.navigate(['/set-location']);
       } else {
         this.router.navigate(['/dashboard']);
       }
-    })
+    });
   }
 }

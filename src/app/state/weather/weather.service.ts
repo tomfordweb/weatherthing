@@ -36,14 +36,16 @@ export class WeatherService {
 
   updateLocation(location: string) {
     // clear current location
-    this.storage.set(CURRENT_WEATHER_LAST_UPDATED_LOCAL_STORAGE_KEY, null);
     this.locationService.setLocation(null);
 
     // clear weather data
     this.storage.set(CURRENT_WEATHER_LOOCAL_STORAGE_KEY, {});
     this.storage.set(CURRENT_WEATHER_LAST_UPDATED_LOCAL_STORAGE_KEY, null);
 
-    this.get(location);
+    if (location && location.length) {
+      this.locationService.setLocation(location);
+      this.get(location);
+    }
   }
 
   get(location: string) {
@@ -69,7 +71,7 @@ export class WeatherService {
       return;
     }
 
-    if (queryApi) {
+    if (queryApi && location) {
       this.queryOpenWeather(location).subscribe(
         (response: OpenWeatherRaw) => {
           console.log(response);
