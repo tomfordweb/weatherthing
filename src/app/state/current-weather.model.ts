@@ -1,10 +1,12 @@
 import { ID, guid } from '@datorama/akita';
 import { LocationCity } from '../set-location/state';
+import * as moment from 'moment';
 
 export type LocationWeatherInfo = {
   list:CurrentWeather[],
   city:LocationCity,
   id: ID,
+  createdDate:string
 }
 export type CurrentWeather = {
   clouds:{all:number},
@@ -27,7 +29,8 @@ export type CurrentWeather = {
   }>
 }
 
-export function createCurrentWeather(params: Partial<CurrentWeather>) {
+export function createCurrentWeather(props:Partial<CurrentWeather>) {
   return {
+    ...props,
   } as LocationWeatherInfo;
 }

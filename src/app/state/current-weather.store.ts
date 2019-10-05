@@ -11,6 +11,5 @@ export class CurrentWeatherStore extends EntityStore<CurrentWeatherState> {
   constructor() {
     super();
   }
-
 }
 

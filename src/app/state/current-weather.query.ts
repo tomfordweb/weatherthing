@@ -5,6 +5,8 @@ import { CurrentWeatherStore, CurrentWeatherState } from './current-weather.stor
 @Injectable({ providedIn: 'root' })
 export class CurrentWeatherQuery extends QueryEntity<CurrentWeatherState> {
 
+  getCurrent$ = this.getAll();
+
   constructor(protected store: CurrentWeatherStore) {
     super(store);
   }

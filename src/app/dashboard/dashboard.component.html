@@ -1,7 +1,8 @@
 <div class="container">
 	<div class="row">
-		<div class="col-sm-12">
-		</div>
+		<header class="col-sm-12">
 		<h1>Weather for: {{ location }}</h1>
+		</header>
+		<app-forecast-list [currentWeather]="currentWeather" class="col-sm-12"></app-forecast-list>
 	</div>
 </div>

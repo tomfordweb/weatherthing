@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { LocationStore } from './location.store';
+import { LocationStore, LocationCity } from './location.store';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 
 export const LOCATION_LOCAL_STORAGE_KEY = 'weatherthing:state:location';
@@ -22,6 +22,12 @@ export class LocationService {
     if(localStorageLocation) {
       this.setLocation(localStorageLocation);
     }
+  }
+
+  setCity(input:LocationCity):void {
+    this.locationStore.update({
+      city: input
+    });
   }
 
   setLocation(input:string):void {
