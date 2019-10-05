@@ -1,8 +1,11 @@
 <div class="container">
 	<div class="row">
-		<header class="col-sm-12">
-		<h1>Weather for: {{ location }}</h1>
+		<header class="col-sm-12 form-inline mb-4">
+			<label class="lead">Weather For </label>&nbsp;
+			<input type="text" class="form-control form-control-lg" value="{{ location }}" (keydown.enter)="updateLocation(locationInput.value)" #locationInput />
+			<button (click)="updateLocation(locationInput.value)" class="btn btn-default">Update</button>
 		</header>
+
 		<app-forecast-list [currentWeather]="currentWeather" class="col-sm-12"></app-forecast-list>
 	</div>
 </div>
